@@ -129,7 +129,7 @@ async function run() {
   })
 
 
-  
+  // delete
   app.delete('/food/:id', async (req,res)=>{
     const id = req.params.id
     const query = {_id:new ObjectId(id)} 
@@ -137,6 +137,47 @@ async function run() {
     const result = await serviceCollection.deleteOne(query);
 
     res.send(result)
+  })
+
+
+  // update
+  app.get('/food/:id', async(req,res)=>{
+    const id = req.params.id;
+    const query = {_id : new ObjectId(id)};
+
+    const result = await serviceCollection.findOne(query)
+    res.send(result)
+  })
+
+
+  // update operation]
+  app.put('/food/:id', async(req,res)=>{
+    const id = req.params.id;
+    const filter = {_id : new ObjectId(id)};
+
+    
+    const updateFood = req.body; // রিকোয়েস্টের বডি থেকে ডাটা গুলো নিতে হবে
+
+    const options = {upsert:true}; // থাকলে আপডেট করবা,না থাকলে নতুন ভাবে ক্রিয়েট করবা
+
+
+    const food = {
+      $set : {
+
+        title : updateFood.title,
+        quantity : updateFood.quantity,
+        price : updateFood.price,
+        taste : updateFood.taste,
+        details : updateFood.details,
+        img : updateFood.img,
+
+      }
+    }
+
+    const result = await serviceCollection.updateOne(filter,food,options)
+
+    res.send(result);
+
   })
 
     
