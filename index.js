@@ -13,6 +13,8 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
+      "https://car-doctor-481cb.web.app",
+      "https://car-doctor-481cb.firebaseapp.com"
     ],
     credentials: true, // will go to client side for this credentials
   })
@@ -48,7 +50,7 @@ const logger = (req, res, next) => {
 
 const verifyToken = (req, res, next) => {
   const token = req?.cookies?.token;
-  // console.log('token in the middleware',token);
+  
 
   if (!token) {
     return res.status(401).send({ message: "User UnAuthorized Access" });
@@ -72,7 +74,7 @@ const cookieOption = {
 
 async function run() {
   try {
-    await client.connect();
+    // await client.connect();
 
     //  json token related
 
@@ -182,12 +184,6 @@ async function run() {
 
     
 
-
-
-
-
-
-
     app.get("/services/:id", async (req, res) => {
       const id = req.params.id;
 
@@ -275,7 +271,7 @@ async function run() {
 
     // await client.db("admin").command({ ping: 1 });
     console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
+      // "Pinged your deployment. You successfully connected to MongoDB!"
     );
   } finally {
   }
