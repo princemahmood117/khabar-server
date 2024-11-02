@@ -72,7 +72,7 @@ const cookieOption = {
 
 async function run() {
   try {
-    // await client.connect();
+    await client.connect();
 
     //  json token related
 
@@ -97,7 +97,7 @@ async function run() {
       res.clearCookie("token", { ...cookieOption, maxAge: 0 }).send({ success: true });
     });
 
-    const serviceCollection = client.db("carDoctor").collection("services");
+    const serviceCollection = client.db("khabarEkhanei").collection("services");
 
     // to see all the services
     app.get("/services", async (req, res) => {
@@ -129,7 +129,7 @@ async function run() {
 
     // this is for booking any service inside database
 
-    const bookingCollection = client.db("carDoctor").collection("bookings");
+    const bookingCollection = client.db("khabarEkhanei").collection("bookings");
 
     // get all the booked data
     app.get("/bookings", logger, verifyToken, async (req, res) => {
